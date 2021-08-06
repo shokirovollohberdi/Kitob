@@ -1,37 +1,36 @@
 package com.example.tiktok
 
-import Adapter.MyAdapter
+
 import Models.Batafsil
 import Models.Xatolar
-import MyDate.Batafsil_object
 import MyDate.Batafsil_object.bataflis_list
 import MyDate.Index
 import MyDate.Xatolar_object.xatolar_list
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import com.example.tiktok.Adapter.MyAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         loadDate()
-        supportActionBar?.hide()
+
 
         listview.setOnItemClickListener { parent, view, position, id ->
-            Toast.makeText(this, "$position", Toast.LENGTH_SHORT).show()
             Index.index_position = position
             startActivity(Intent(this, BatafsilActivity::class.java))
         }
-
     }
 
     private fun loadDate() {
         var adapter: MyAdapter
-        var list: ArrayAdapter<Xatolar>
         var tartib = 0
         xatolar_list.add(Xatolar(++tartib, R.drawable.profile, "Xar xil mavzularda ijod qilish"))
         xatolar_list.add(Xatolar(++tartib, R.drawable.contents, "Jinnicha ko’chirishlar"))
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         xatolar_list.add(Xatolar(++tartib, R.drawable.video_ochirish, "Videolarni o'chirish va yashirish"))
         xatolar_list.add(Xatolar(++tartib, R.drawable.boglanmang, "TikTokga judayam qattiq bog'lanib qolmang"))
         xatolar_list.add(Xatolar(++tartib, R.drawable.tiktok, "Kim uchun video olayotganingizni unutmang"))
-        xatolar_list.add(Xatolar(++tartib, R.drawable.tiktok, "Dastur Haqida"))
 
         bataflis_list.add(Batafsil("Profilingizni dabdala qilishning hojati yo'q." +
                 " Nima uchun? Tiktok algoritmi sizni kimga ko'rsatishni tushunmaydi." +
@@ -133,11 +131,24 @@ class MainActivity : AppCompatActivity() {
                 "unda maqsadli auditoriyangizni aniqlash kerak!"))
 
 
-
         adapter = MyAdapter(this, xatolar_list)
         listview.adapter = adapter
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu1, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.about -> {
+                startActivity(Intent(this, IlovaHaqida::class.java))
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

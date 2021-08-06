@@ -1,4 +1,4 @@
-package Adapter
+package com.example.tiktok.Adapter
 
 import Models.Xatolar
 import android.content.Context
@@ -26,4 +26,11 @@ class MyAdapter(context: Context, val list: List<Xatolar>) : ArrayAdapter<Xatola
 
         return itemView
     }
+
+    override fun getCount(): Int  = 10
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
 }
